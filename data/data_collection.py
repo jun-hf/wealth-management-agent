@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from google.cloud import firestore
 import google.generativeai as genai
 from datetime import datetime
+from google.cloud.firestore_v1.vector import Vector
 
 load_dotenv()
 
@@ -166,7 +167,7 @@ def load_to_firestore(funds_data):
             
             # Generate embedding
             print(f"[{i}/{len(funds_data)}] Processing {fund['name'][:50]}...")
-            fund['embedding'] = generate_embedding(fund['search_text'])
+            fund['embedding'] = Vector(generate_embedding(fund['search_text']))
             
             # Save to Firestore
             db.collection('funds').document(fund['fund_id']).set(fund)
