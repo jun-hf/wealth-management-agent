@@ -1,4 +1,5 @@
 from mcp.server.fastmcp import FastMCP
+from utils.common import get_embedding
 from google.cloud import firestore
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 import google.generativeai as genai
@@ -13,15 +14,6 @@ db = firestore.Client(project=os.getenv('PROJECT_ID'))
 
 # Create MCP server
 mcp = FastMCP("fund-knowledge")
-
-def get_embedding(text: str):
-    """Generate embedding for text"""
-    result = genai.embed_content(
-        model="models/text-embedding-004",
-        content=text,
-        task_type="retrieval_query"
-    )
-    return result['embedding']
 
 @mcp.tool()
 def search_funds(query: str, risk_level: str = None, asset_class: str = None, min_amount: float = None) -> list:
