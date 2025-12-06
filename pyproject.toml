@@ -1,0 +1,12 @@
+[project]
+name = "wealth-management-agent"
+version = "0.1.0"
+description = "RBC Wealth Management Agent with MCP"
+requires-python = ">=3.9"
+dependencies = [
+    "google-cloud-firestore>=2.21.0",
+    "google-generativeai>=0.8.5",
+    "gradio>=4.44.1",
+    "python-dotenv>=1.2.1",
+    "requests>=2.25.1",
+]
