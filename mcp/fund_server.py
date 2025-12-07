@@ -16,7 +16,7 @@ db = firestore.Client(project=os.getenv('PROJECT_ID'))
 mcp = FastMCP("fund-knowledge")
 
 @mcp.tool()
-def search_funds(query: str, risk_level: str = None, asset_class: str = None, min_amount: float = None) -> list:
+def search_funds(query: str, risk_level: str = None, asset_class: str = None) -> list:
     """
     Search for mutual funds using semantic search.
     
@@ -24,7 +24,6 @@ def search_funds(query: str, risk_level: str = None, asset_class: str = None, mi
         query: Natural language search query (e.g., "retirement income funds")
         risk_level: Optional filter - "Low", "Medium", "High", etc.
         asset_class: Optional filter - "Canadian Equity Funds", "Fixed Income Funds", etc.
-        min_amount: Optional - maximum investment amount user can afford
     
     Returns:
         List of matching funds with details
@@ -53,8 +52,6 @@ def search_funds(query: str, risk_level: str = None, asset_class: str = None, mi
             if risk_level and data.get('risk_level') != risk_level:
                 continue
             if asset_class and data.get('asset_class') != asset_class:
-                continue
-            if min_amount and data.get('min_investment', 0) > min_amount:
                 continue
             
             funds.append({
