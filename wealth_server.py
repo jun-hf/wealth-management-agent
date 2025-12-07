@@ -5,7 +5,6 @@ from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
-import asyncio
 import logging
 import uuid
 
@@ -337,3 +336,13 @@ def calculate_projections(fund_ids: list, amount: float, years: int) -> list:
     
     except Exception as e:
         return [{"error": str(e)}]
+
+
+if __name__ == "__main__":
+    import uvicorn
+    
+    port = int(os.getenv("PORT", 8080))
+    logger.info(f"🚀 RBC Wealth Management MCP server started on port {port}")
+    
+    mcp.run()
+
